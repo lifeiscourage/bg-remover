@@ -35,67 +35,73 @@ function App() {
       })
       
       if (!response.ok) {
-        throw new Error('处理失败，请稍后重试')
+        throw new Error('Processing failed')
       }
       
       const resultBlob = await response.blob()
       setResult(URL.createObjectURL(resultBlob))
     } catch (error) {
-      alert('处理失败: ' + error.message)
+      alert('Error: ' + error.message)
     } finally {
       setLoading(false)
     }
   }
 
-  return (
-    <div className="app">
-      <h1>✨ 图片背景移除</h1>
-      <p className="subtitle">一键去除图片背景，简单快捷</p>
-      
-      {!image && (
-        <div className="upload-section">
-          <label className="upload-box">
-            <input type="file" accept="image/*" onChange={handleUpload} />
-            <div className="upload-icon">📸</div>
-            <div className="upload-text">点击或拖拽上传图片</div>
-          </label>
-        </div>
-      )}
-
-      {image && (
-        <div className="preview-section">
-          <div className="image-container">
-            <h3>原图</h3>
-            <img src={image} alt="原图" />
+  if (image) {
+    return (
+      <div className="app">
+        <h1>Background Remover</h1>
+        <p className="subtitle">AI-powered background removal tool</p>
+        
+        <div className="result-container">
+          <div className="result-card">
+            <h3>Original</h3>
+            <img src={image} alt="Original" />
           </div>
           
           {result && (
-            <div className="image-container">
-              <h3>处理后</h3>
-              <img src={result} alt="处理后" style={{background: 'repeating-conic-gradient(#ddd 0% 25%, white 0% 50%) 50% / 20px 20px'}} />
+            <div className="result-card">
+              <h3>Result</h3>
+              <img src={result} alt="Result" style={{background: 'repeating-conic-gradient(#ddd 0% 25%, white 0% 50%) 50% / 20px 20px'}} />
             </div>
           )}
         </div>
-      )}
 
-      {loading && <div className="loading">⏳ 正在处理中...</div>}
+        {loading && <div className="loading">⏳ Processing...</div>}
 
-      {image && !result && !loading && (
-        <button onClick={removeBackground}>
-          🎨 移除背景
-        </button>
-      )}
+        <div className="actions">
+          {!result && !loading && (
+            <button className="btn-primary" onClick={removeBackground}>
+              Remove Background
+            </button>
+          )}
+          
+          {result && (
+            <>
+              <a href={result} download="no-bg.png" className="btn-primary">
+                Download
+              </a>
+              <button className="btn-secondary" onClick={() => { setImage(null); setResult(null); }}>
+                Upload New
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    )
+  }
 
-      {result && (
-        <>
-          <a href={result} download="no-bg.png" className="download-btn">
-            ⬇️ 下载图片
-          </a>
-          <button onClick={() => { setImage(null); setResult(null); }}>
-            🔄 重新上传
-          </button>
-        </>
-      )}
+  return (
+    <div className="app">
+      <h1>Background Remover</h1>
+      <p className="subtitle">AI-powered background removal tool</p>
+      
+      <label className="upload-card">
+        <input type="file" accept="image/*" onChange={handleUpload} />
+        <div className="upload-icon">📤</div>
+        <h3>Upload Image</h3>
+        <p>Support JPG, PNG and other formats</p>
+      </label>
     </div>
   )
 }

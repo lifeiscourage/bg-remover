@@ -1,3 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: white;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+}
+
 .app {
   max-width: 1200px;
   margin: 0 auto;
@@ -6,114 +18,131 @@
 }
 
 h1 {
-  color: white;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  color: #2d3748;
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
 }
 
 .subtitle {
-  color: rgba(255,255,255,0.9);
-  font-size: 1.2rem;
+  color: #718096;
+  font-size: 1.1rem;
   margin-bottom: 3rem;
 }
 
-.upload-section {
-  margin: 2rem 0;
-}
-
-.upload-box {
-  background: white;
-  border: 3px dashed #667eea;
-  border-radius: 16px;
-  padding: 3rem;
+.upload-card {
+  background: #f8f9fa;
+  border-radius: 24px;
+  padding: 4rem 3rem;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  border: 2px dashed #cbd5e0;
   max-width: 500px;
   margin: 0 auto;
+  display: block;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
 }
 
-.upload-box:hover {
-  border-color: #764ba2;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+.upload-card:hover {
+  background: #f1f3f5;
+  border-color: #4a5568;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.18);
 }
 
-.upload-box input[type="file"] {
+.upload-card input[type="file"] {
   display: none;
 }
 
 .upload-icon {
   font-size: 4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.upload-text {
-  color: #667eea;
-  font-size: 1.2rem;
+.upload-card h3 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
   font-weight: 600;
 }
 
-.preview-section {
-  display: flex;
+.upload-card p {
+  color: #718096;
+  font-size: 1rem;
+}
+
+.result-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  justify-content: center;
-  margin: 3rem 0;
-  flex-wrap: wrap;
+  margin: 2rem auto;
+  max-width: 900px;
 }
 
-.image-container {
-  flex: 1;
-  min-width: 300px;
-  max-width: 450px;
+.result-card {
   background: white;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
-.image-container h3 {
-  color: #333;
+.result-card h3 {
+  color: #2d3748;
+  font-size: 1.2rem;
   margin-bottom: 1rem;
-  font-size: 1.3rem;
-}
-
-.image-container img {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-button, .download-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1rem 3rem;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 1.1rem;
   font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
-  margin: 1rem 0.5rem;
-  transition: all 0.3s;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-button:hover, .download-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
+.result-card img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
 .loading {
+  color: #4a5568;
+  font-size: 1.1rem;
+  margin: 1.5rem 0;
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 0.9rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: #2d3748;
   color: white;
-  font-size: 1.2rem;
-  margin: 2rem 0;
+  box-shadow: 0 4px 15px rgba(45, 55, 72, 0.3);
+}
+
+.btn-primary:hover {
+  background: #1a202c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 55, 72, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  color: #2d3748;
+  border: 2px solid #e2e8f0;
+}
+
+.btn-secondary:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+  transform: translateY(-2px);
 }
