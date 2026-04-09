@@ -5,7 +5,7 @@ pages_build_output_dir = "dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "bg-remover-db"
-database_id = "" # Will be filled after creating the D1 database
+database_id = "ba1ce380-daa3-4cef-a955-265b90e20b3b"
 
 # Environment variables (set via Cloudflare Dashboard or wrangler secret):
 # GOOGLE_CLIENT_ID
