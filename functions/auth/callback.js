@@ -95,6 +95,7 @@ export async function onRequestGet(context) {
     });
   } catch (err) {
     console.error('OAuth callback error:', err);
-    return Response.redirect(`${url.origin}/?login_error=server_error`, 302);
+    const detail = err instanceof Error ? err.message : String(err);
+    return Response.redirect(`${url.origin}/?login_error=server_error&detail=${encodeURIComponent(detail)}`, 302);
   }
 }
