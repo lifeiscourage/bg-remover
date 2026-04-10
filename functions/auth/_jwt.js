@@ -3,9 +3,25 @@
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
+function bytesToBase64(bytes) {
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+  }
+  return btoa(binary);
+}
+
 function base64UrlEncode(data) {
-  const str = typeof data === 'string' ? data : String.fromCharCode(...new Uint8Array(data));
-  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  let bytes;
+  if (typeof data === 'string') {
+    bytes = encoder.encode(data);
+  } else if (data instanceof Uint8Array) {
+    bytes = data;
+  } else {
+    bytes = new Uint8Array(data);
+  }
+  return bytesToBase64(bytes).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
 function base64UrlDecode(str) {
