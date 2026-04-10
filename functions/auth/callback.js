@@ -40,7 +40,8 @@ export async function onRequestGet(context) {
     if (!tokenResponse.ok) {
       const err = await tokenResponse.text();
       console.error('Token exchange failed:', err);
-      return Response.redirect(`${url.origin}/?login_error=token_exchange_failed`, 302);
+      // Temporarily expose Google's error detail in the URL for debugging
+      return Response.redirect(`${url.origin}/?login_error=token_exchange_failed&detail=${encodeURIComponent(err)}`, 302);
     }
 
     const tokens = await tokenResponse.json();
