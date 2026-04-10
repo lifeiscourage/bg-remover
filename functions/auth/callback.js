@@ -82,16 +82,15 @@ export async function onRequestGet(context) {
     );
 
     // Set session cookie and redirect to home
+    const headers = new Headers({
+      Location: url.origin + '/',
+    });
+    headers.append('Set-Cookie', `session=${jwt}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${7 * 24 * 3600}`);
+    headers.append('Set-Cookie', 'oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0');
+
     return new Response(null, {
       status: 302,
-      headers: {
-        Location: url.origin + '/',
-        'Set-Cookie': [
-          `session=${jwt}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${7 * 24 * 3600}`,
-          // Clear the oauth_state cookie
-          `oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`,
-        ].join(', '),
-      },
+      headers,
     });
   } catch (err) {
     console.error('OAuth callback error:', err);
